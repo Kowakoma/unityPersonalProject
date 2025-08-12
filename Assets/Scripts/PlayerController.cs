@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _playerRb;
     private bool _isOnGround;
     private bool _jumpRequested;
+    public bool isGameOver;
     private float _horizontalInput;
     private float _verticalInput;
 
@@ -44,13 +45,28 @@ public class PlayerController : MonoBehaviour
 
         // IsOnGround check
         _isOnGround = Physics.Raycast(transform.position, Vector3.down, _groundCheckDistance, _groundLayer);
-        
+
         // Physics of jump
         if (_jumpRequested && _isOnGround)
         {
             _playerRb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _jumpRequested = false;
             _isOnGround = false;
+        }
+    }
+    
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Red"))
+        {
+            Destroy(gameObject);
+            Destroy(other.gameObject);
+            isGameOver = true;
+        }
+        else if (other.gameObject.CompareTag("Black"))
+        {
+            Destroy(gameObject);
+            isGameOver = true;
         }
     }
 }
