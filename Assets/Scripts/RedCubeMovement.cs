@@ -5,6 +5,7 @@ using UnityEngine;
 public class RedCubeMovement : MonoBehaviour
 {
     private Rigidbody _redCubeRb;
+    private ScrollingWaterTexture scrollingWaterTexture;
     [SerializeField] private float _speed;
     public GameObject player;
 
@@ -12,6 +13,8 @@ public class RedCubeMovement : MonoBehaviour
     void Start()
     {
         _redCubeRb = GetComponent<Rigidbody>();
+
+        
     }
 
     // Update is called once per frame

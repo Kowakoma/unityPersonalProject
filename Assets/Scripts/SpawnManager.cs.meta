@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 31fdf94eeda1816488543ae80be0c252
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - redCubePrefab: {fileID: 4417611913895186636, guid: 699d7ae07381c1b4282c36e49762e39b, type: 3}
+  - playerPrefab: {fileID: 1552598885301977575, guid: 6a31a75679072734badad031c5693a3f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -7,6 +7,7 @@ TagManager:
   - Red
   - Blue
   - Black
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
+  - Obstacle
+  - Player
   - 
   - 
   - 
