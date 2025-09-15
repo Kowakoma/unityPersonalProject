@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    private Vector3 _playerSpawnPos = new Vector3(0, 2, 0);
-    private float _xSpawnBound = 10.0f;
-    private float _startDelay = 1.0f;
-    private float _repeatRate = 0.2f;
     private PlayerController _playerControllerScript;
+    private ScrollingWaterTexture _scrollingWaterTextureScript;
+    [SerializeField] private Vector3 _playerSpawnPos = new Vector3(0, 2, 0);
+    [SerializeField] private float _xSpawnBound = 10.0f;
+    [SerializeField] private float _startDelay = 1.0f;
+    [SerializeField] private float _repeatRate = 0.2f;
+    [SerializeField] private float _ySpawnObstaclePos = 2.0f;
+    [SerializeField] private float _zSpawnObstaclePos = 40.0f;
     [SerializeField] private GameObject[] obstacles;
     public GameObject playerPrefab;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,7 +32,7 @@ public class SpawnManager : MonoBehaviour
     Vector3 GenerateSpawnPosition()
     {
         float xSpawnPos = Random.Range(-_xSpawnBound, _xSpawnBound);
-        return new Vector3(xSpawnPos, 7, 15);
+        return new Vector3(xSpawnPos, _ySpawnObstaclePos, _zSpawnObstaclePos);
     }
 
     void SpawnObstacle()

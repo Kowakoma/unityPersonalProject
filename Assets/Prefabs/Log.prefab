@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 9140443762076171940}
   - component: {fileID: 4675381982138759012}
   - component: {fileID: 4560981089127015669}
+  - component: {fileID: -275547922531986521}
   m_Layer: 0
   m_Name: Log
-  m_TagString: Obstacle
+  m_TagString: Log
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +98,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9140443762074230884}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.05
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -137,3 +138,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 0.24778296, z: 0.24497804}
   m_Center: {x: 0, y: 0.123906456, z: 0.00023217499}
+--- !u!114 &-275547922531986521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9140443762074230884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f59b60584f9354b84b23a68657c7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
