@@ -17,7 +17,10 @@ public class ObstacleMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-      //  transform.Translate(_scrollingWaterTextureScript.flowSpeed);
+      if (gameObject.transform.position.y < -15)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -26,10 +29,6 @@ public class ObstacleMovement : MonoBehaviour
         {
             Destroy(gameObject);
             Destroy(other.gameObject);
-        }
-        else if (gameObject.transform.position.y < -9)
-        {
-            Destroy(gameObject);
         }
     }
 }

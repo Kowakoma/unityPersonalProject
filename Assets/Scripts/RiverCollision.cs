@@ -22,7 +22,7 @@ public class RiverCollision : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Branch"))
         {
-            _flowMultiplayer = 150;
+            _flowMultiplayer = 130;
         }
         else
         {
