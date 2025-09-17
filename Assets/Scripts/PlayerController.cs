@@ -1,72 +1,54 @@
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _drag;
-    [SerializeField] private float _jumpForce;
-    [SerializeField] private float _groundCheckDistance = 0.2f;
+    [SerializeField] private float _rotationSpeed = 100f;
     [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private float _reverseRotationMultiplyer = 1f;
+    private float rotationMultiplyer = 1f;
 
     private Rigidbody _playerRb;
-    private bool _isOnGround;
-    private bool _jumpRequested;
     public bool isGameOver;
     private float _horizontalInput;
     private float _verticalInput;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _playerRb = GetComponent<Rigidbody>();
-        _playerRb.linearDamping = _drag;
+        _playerRb.linearDamping = _drag; // Damping for straight movement
+        _playerRb.angularDamping = _drag * 2f; // Double Damping for rotation
+        
+        // Limit rotation only in y axis
+        _playerRb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Input of movement on plane
-        _horizontalInput = Input.GetAxis("Horizontal");
+        // Input controll
         _verticalInput = Input.GetAxis("Vertical");
-
-        // Input of jump
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _jumpRequested = true;
-        }
+        _horizontalInput = Input.GetAxis("Horizontal");
     }
 
     void FixedUpdate()
     {
-        // Physics of movement on plane
-        Vector3 force = new Vector3(_horizontalInput, 0, _verticalInput) * _speed;
-        _playerRb.AddForce(force, ForceMode.Force);
+        // Move forward/back
+        Vector3 forwardForce = transform.right * _verticalInput * _speed;
+        _playerRb.AddForce(forwardForce, ForceMode.Force);
 
-        // IsOnGround check
-        _isOnGround = Physics.Raycast(transform.position, Vector3.down, _groundCheckDistance, _groundLayer);
-
-        // Physics of jump
-        if (_jumpRequested && _isOnGround)
+        // Reverse rotation while moving back
+        if (_verticalInput < -0.1)
         {
-            _playerRb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
-            _jumpRequested = false;
-            _isOnGround = false;
+            rotationMultiplyer = -_reverseRotationMultiplyer;
         }
-    }
-    
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Red"))
+        else if (_verticalInput > 0.1 || _verticalInput == 0)
         {
-            Destroy(gameObject);
-            Destroy(other.gameObject);
-            isGameOver = true;
+            rotationMultiplyer = 1f;
         }
-        else if (other.gameObject.CompareTag("Black"))
-        {
-            Destroy(gameObject);
-            isGameOver = true;
-        }
+        
+        // Rotate boat 
+        float rotationAmount = _horizontalInput * _rotationSpeed * rotationMultiplyer * Time.fixedDeltaTime;
+        transform.Rotate(0, rotationAmount, 0, Space.World);
     }
 }
