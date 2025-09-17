@@ -18,11 +18,11 @@ public class RiverCollision : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Log"))
         {
-            _flowMultiplayer = 200;
+            _flowMultiplayer = 300;
         }
         else if (collision.gameObject.CompareTag("Branch"))
         {
-            _flowMultiplayer = 130;
+            _flowMultiplayer = 200;
         }
         else
         {
