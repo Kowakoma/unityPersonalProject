@@ -1,9 +1,12 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RiverCollision : MonoBehaviour
 {
     private ScrollingWaterTexture _scrollingWaterTextureScript;
+    [SerializeField] private float _logFlowMultiplayer = 300f;
+    [SerializeField] private float _branchFlowMultiplayer = 150f;
+    [SerializeField] private float _playerFlowMultiplayer = 100f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,17 +23,17 @@ public class RiverCollision : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Log"))
         {
-            flowMultiplayer = 300;
+            flowMultiplayer = _logFlowMultiplayer;
         }
         else if (collision.gameObject.CompareTag("Branch"))
         {
-            flowMultiplayer = 200;
+            flowMultiplayer = _branchFlowMultiplayer;
         }
         else
         {
-            flowMultiplayer = 1;
+            flowMultiplayer = _playerFlowMultiplayer;
         }
 
-        Rb.AddForce(_scrollingWaterTextureScript.flowSpeed * flowMultiplayer, ForceMode.Acceleration);
+        Rb.AddForce(_scrollingWaterTextureScript.flowSpeed * flowMultiplayer, ForceMode.Force);
     }
 }

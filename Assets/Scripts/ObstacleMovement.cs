@@ -2,21 +2,18 @@ using UnityEngine;
 
 public class ObstacleMovement : MonoBehaviour
 {
-    private Rigidbody _obstacleRb;
-    private ScrollingWaterTexture _scrollingWaterTextureScript;
+    [SerializeField] private SpawnManager _spawnManagerScript;
     public GameObject player;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _scrollingWaterTextureScript = FindAnyObjectByType<ScrollingWaterTexture>();
-
-        _obstacleRb = GetComponent<Rigidbody>();
+        // Find Spawn Manager script
+        _spawnManagerScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
+        // Destroy obstacles out of visible bounds
       if (gameObject.transform.position.y < -15)
         {
             Destroy(gameObject);
@@ -25,10 +22,13 @@ public class ObstacleMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        // Game over when player collide with obstacle
         if (other.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
             Destroy(other.gameObject);
+
+            _spawnManagerScript.isGameOver = true;
         }
     }
 }

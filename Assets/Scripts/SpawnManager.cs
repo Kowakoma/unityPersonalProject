@@ -1,32 +1,25 @@
+using System.Collections;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    private PlayerController _playerControllerScript;
-    private ScrollingWaterTexture _scrollingWaterTextureScript;
     [SerializeField] private Vector3 _playerSpawnPos = new Vector3(0, 2, 0);
     [SerializeField] private float _xSpawnBound = 10.0f;
+    [SerializeField] private float _zSpawnBound = 10.0f;
     [SerializeField] private float _startDelay = 1.0f;
     [SerializeField] private float _repeatRate = 0.2f;
     [SerializeField] private float _ySpawnObstaclePos = 2.0f;
     [SerializeField] private float _zSpawnObstaclePos = 40.0f;
     [SerializeField] private GameObject[] obstacles;
     public GameObject playerPrefab;
+    public bool isGameOver;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Instantiate(playerPrefab, _playerSpawnPos, transform.rotation);
-
-        _playerControllerScript = FindAnyObjectByType<PlayerController>();
-
         InvokeRepeating("SpawnObstacle", _startDelay, _repeatRate);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        StartCoroutine(FishNotActive());
+        Debug.Log("Fish Not Active");
     }
 
     Vector3 GenerateSpawnPosition()
@@ -35,11 +28,52 @@ public class SpawnManager : MonoBehaviour
         return new Vector3(xSpawnPos, _ySpawnObstaclePos, _zSpawnObstaclePos);
     }
 
+    Vector3 GenerateFishSpawnPosition()
+    {
+        float xFishSpawnPos = Random.Range(-_xSpawnBound, _xSpawnBound);
+        float zFishSpawnPos = Random.Range(-_zSpawnBound, _zSpawnBound);
+        return new Vector3(xFishSpawnPos, 0, zFishSpawnPos);
+    }
+
+    float GenerateRandomActiveFishTime()
+    {
+        return Random.Range(3, 10);
+    }
+
+    float GenerateRandomNotActiveFishTime()
+    {
+        return Random.Range(5, 30);
+    }
+
+    IEnumerator FishActive()
+    {
+        yield return new WaitForSeconds(GenerateRandomActiveFishTime());
+
+        StartCoroutine(FishNotActive());
+        Debug.Log("Fish Not Active");
+    }
+
+    IEnumerator FishNotActive()
+    {
+        yield return new WaitForSeconds(GenerateRandomNotActiveFishTime());
+
+        StartCoroutine(FishActive());
+        Debug.Log("Fish Active");
+    }
+
     void SpawnObstacle()
     {
-        if (_playerControllerScript.isGameOver == false)
+        if (isGameOver == false)
         {
             Instantiate(GetRandomObstacle(), GenerateSpawnPosition(), transform.rotation);
+        }
+    }
+
+    void SpawnFish()
+    {
+        if (isGameOver == false)
+        {
+            //
         }
     }
 

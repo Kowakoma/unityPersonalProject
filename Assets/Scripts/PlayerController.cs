@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private float rotationMultiplyer = 1f;
 
     private Rigidbody _playerRb;
-    public bool isGameOver;
     private float _horizontalInput;
     private float _verticalInput;
 

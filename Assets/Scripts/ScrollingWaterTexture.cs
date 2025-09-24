@@ -4,7 +4,7 @@ public class ScrollingWaterTexture : MonoBehaviour
 {
 
     // Scroll speed for X and Y axes;
-    [SerializeField] private Vector2 _scrollSpeed = new Vector2(0f, -0.1f);
+    [SerializeField] private Vector2 _scrollSpeed = new Vector2(0f, -0f);
 
     private Renderer objectRenderer;
     public Vector3 flowSpeed;
