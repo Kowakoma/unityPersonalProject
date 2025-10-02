@@ -3,23 +3,31 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    [Header("Player spawn position")]
     [SerializeField] private Vector3 _playerSpawnPos = new Vector3(0, 2, 0);
-    [SerializeField] private float _xSpawnBound = 10.0f;
+    public GameObject playerPrefab;
+
+    [Header("Obstacle spawn settings")]
+    [SerializeField] private float _xSpawnBound = 10.0f; 
     [SerializeField] private float _startDelay = 1.0f;
     [SerializeField] private float _repeatRate = 0.2f;
     [SerializeField] private GameObject[] obstacles;
-    private GameObject _currentFish;
+
+    [Header("Fish settings")]
+    [SerializeField] private int _maxActiveFish = 1;
     public GameObject fishPrefab;
-    public Coroutine currentFishState;
-    public GameObject playerPrefab;
     public bool isGameOver;
     public bool isFishing;
+
+    private Coroutine _currentFishState;
+    private int _currentActiveFishCount = 0;
+    private GameObject _currentFish;
 
     void Start()
     {
         Instantiate(playerPrefab, _playerSpawnPos, transform.rotation);
         InvokeRepeating("SpawnObstacle", _startDelay, _repeatRate);
-        currentFishState = StartCoroutine(FishCycle());
+        _currentFishState = StartCoroutine(FishCycle());
     }
 
     Vector3 GenerateSpawnPosition()
@@ -52,11 +60,7 @@ public class SpawnManager : MonoBehaviour
             if (!isFishing)
             {
                 // No fish
-                if (_currentFish != null)
-                {
-                    Destroy(_currentFish);
-                    _currentFish = null;
-                }
+                CleanupCurrentFish();
                 Debug.Log("Fish Not Active");
 
                 yield return new WaitForSeconds(GenerateRandomNotActiveFishTime());
@@ -87,38 +91,43 @@ public class SpawnManager : MonoBehaviour
 
             Debug.Log("Well done!!!");
             isFishing = false;
-            if (_currentFish != null)
-            {
-                Destroy(_currentFish);
-                _currentFish = null;
-            }
-            if (currentFishState != null)
-            {
-                StopCoroutine(currentFishState);
-            }
-            currentFishState = StartCoroutine(FishCycle());
+            CleanupCurrentFish();
+            StopCurrentCoroutine();
+            _currentFishState = StartCoroutine(FishCycle());
         }
     }
 
     public void StartFishing()
     {
-        currentFishState = StartCoroutine(Fishing());
+        _currentFishState = StartCoroutine(Fishing());
     }
 
     public void BreakFishing()
+    {
+        CleanupCurrentFish();
+        StopCurrentCoroutine();
+        Debug.Log("Fish got away!");
+        isFishing = false;
+        _currentFishState = StartCoroutine(FishCycle());
+    }
+
+    void CleanupCurrentFish()
     {
         if (_currentFish != null)
         {
             Destroy(_currentFish);
             _currentFish = null;
+            _currentActiveFishCount--;
         }
-        if (currentFishState != null)
+    }
+
+    void StopCurrentCoroutine()
+    {
+        if (_currentFishState != null)
         {
-            StopCoroutine(currentFishState);
+            StopCoroutine(_currentFishState);
+            _currentFishState = null;
         }
-        Debug.Log("Fish got away!");
-        isFishing = false;
-        currentFishState = StartCoroutine(FishCycle());
     }
 
     void SpawnObstacle()
@@ -131,9 +140,10 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnFish()
     {
-        if (!isGameOver)
+        if (!isGameOver && _currentActiveFishCount < _maxActiveFish)
         {
             _currentFish = Instantiate(fishPrefab, GenerateFishSpawnPosition(), transform.rotation);
+            _currentActiveFishCount++;
         }
     }
 
@@ -151,15 +161,8 @@ public class SpawnManager : MonoBehaviour
 
     public void GameOver()
     {
-        if (_currentFish != null)
-        {
-            Destroy(_currentFish);
-            _currentFish = null;
-        }
-        if (currentFishState != null)
-        {
-            StopCoroutine(currentFishState);
-        }
+        CleanupCurrentFish();
+        StopCurrentCoroutine();
         isGameOver = true;
         Debug.Log("Game Over!");
     }
