@@ -123,7 +123,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnObstacle()
     {
-        if (isGameOver == false)
+        if (!isGameOver)
         {
             Instantiate(GetRandomObstacle(), GenerateSpawnPosition(), transform.rotation);
         }
@@ -131,7 +131,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnFish()
     {
-        if (isGameOver == false)
+        if (!isGameOver)
         {
             _currentFish = Instantiate(fishPrefab, GenerateFishSpawnPosition(), transform.rotation);
         }
@@ -147,5 +147,20 @@ public class SpawnManager : MonoBehaviour
 
         int randomIndex = Random.Range(0, obstacles.Length);
         return obstacles[randomIndex];
+    }
+
+    public void GameOver()
+    {
+        if (_currentFish != null)
+        {
+            Destroy(_currentFish);
+            _currentFish = null;
+        }
+        if (currentFishState != null)
+        {
+            StopCoroutine(currentFishState);
+        }
+        isGameOver = true;
+        Debug.Log("Game Over!");
     }
 }

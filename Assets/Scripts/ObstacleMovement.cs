@@ -28,7 +28,7 @@ public class ObstacleMovement : MonoBehaviour
             Destroy(gameObject);
             Destroy(other.gameObject);
 
-            _spawnManagerScript.isGameOver = true;
+            _spawnManagerScript.GameOver();
         }
     }
 }
