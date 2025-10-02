@@ -21,7 +21,7 @@ public class FishBehaviour : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && !_spawnManagerScript.isFishing)
+        if (other.CompareTag("Player") && _spawnManagerScript.isFishing)
         {
             _spawnManagerScript.BreakFishing();
         }
