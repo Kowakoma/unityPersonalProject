@@ -1,5 +1,7 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -19,15 +21,36 @@ public class SpawnManager : MonoBehaviour
     public bool isGameOver;
     public bool isFishing;
 
+    [Header("UI")]
+    public UI uIScript;
+    public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI titleText;
+    public Button playButton;
+    public Button quitButton;
+
     private Coroutine _currentFishState;
     private int _currentActiveFishCount = 0;
     private GameObject _currentFish;
 
     void Start()
+    { 
+        ToMainMenu();
+    }
+
+    public void StartGame()
     {
+        isGameOver = false;
+        uIScript.DisableMainMenu();
         Instantiate(playerPrefab, _playerSpawnPos, transform.rotation);
         InvokeRepeating("SpawnObstacle", _startDelay, _repeatRate);
         _currentFishState = StartCoroutine(FishCycle());
+
+        Debug.Log("Start game");
+    }
+
+    void ToMainMenu()
+    {
+        Debug.Log("To main menu");
     }
 
     Vector3 GenerateSpawnPosition()
@@ -165,5 +188,10 @@ public class SpawnManager : MonoBehaviour
         StopCurrentCoroutine();
         isGameOver = true;
         Debug.Log("Game Over!");
+        uIScript.EnableGameOverMessege();
+        uIScript.DisableGameOverMessege();
+
+        uIScript.EnableMainMenu();
+        ToMainMenu();
     }
 }
