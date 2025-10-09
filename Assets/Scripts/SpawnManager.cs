@@ -188,8 +188,8 @@ public class SpawnManager : MonoBehaviour
         StopCurrentCoroutine();
         isGameOver = true;
         Debug.Log("Game Over!");
-        uIScript.EnableGameOverMessege();
-        uIScript.DisableGameOverMessege();
+        uIScript.EnableGameOverMessage();
+        uIScript.DisableGameOverMessage();
 
         uIScript.EnableMainMenu();
         ToMainMenu();

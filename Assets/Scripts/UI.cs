@@ -42,15 +42,15 @@ public class UI : MonoBehaviour
         }
     }
 
-    public void EnableGameOverMessege()
+    public void EnableGameOverMessage()
     {
         gameOverText.enabled = true;
     }
-    public void DisableGameOverMessege()
+    public void DisableGameOverMessage()
     {
-        StartCoroutine(HideMessegeAfterDelay());
+        StartCoroutine(HideMessageAfterDelay());
 
-        IEnumerator HideMessegeAfterDelay()
+        IEnumerator HideMessageAfterDelay()
         {
             yield return new WaitForSeconds(1);
             gameOverText.enabled = false;
