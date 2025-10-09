@@ -22,6 +22,7 @@ public class SpawnManager : MonoBehaviour
     public bool isFishing;
 
     [Header("UI")]
+    public MainCameraMovement mainCameraMovementScript;
     public UI uIScript;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI titleText;
@@ -40,6 +41,7 @@ public class SpawnManager : MonoBehaviour
     public void StartGame()
     {
         isGameOver = false;
+        mainCameraMovementScript.ToGamePosition();
         uIScript.DisableMainMenu();
         Instantiate(playerPrefab, _playerSpawnPos, transform.rotation);
         InvokeRepeating("SpawnObstacle", _startDelay, _repeatRate);
@@ -50,6 +52,7 @@ public class SpawnManager : MonoBehaviour
 
     void ToMainMenu()
     {
+        mainCameraMovementScript.ToMenuPosition();
         Debug.Log("To main menu");
     }
 

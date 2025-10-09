@@ -34,7 +34,7 @@ public class UI : MonoBehaviour
 
         IEnumerator HideMessegeAfterDelay()
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2);
             playButton.gameObject.SetActive(false);
             quitButton.gameObject.SetActive(false);
             recordText.enabled = false;
@@ -52,7 +52,7 @@ public class UI : MonoBehaviour
 
         IEnumerator HideMessageAfterDelay()
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2);
             gameOverText.enabled = false;
         }
     }
