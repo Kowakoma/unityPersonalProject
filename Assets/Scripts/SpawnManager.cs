@@ -28,6 +28,9 @@ public class SpawnManager : MonoBehaviour
     public TextMeshProUGUI titleText;
     public Button playButton;
     public Button quitButton;
+    [HideInInspector]
+    public int score = 0;
+    public int record = 0;
 
     private Coroutine _currentFishState;
     private int _currentActiveFishCount = 0;
@@ -46,6 +49,7 @@ public class SpawnManager : MonoBehaviour
         Instantiate(playerPrefab, _playerSpawnPos, transform.rotation);
         InvokeRepeating("SpawnObstacle", _startDelay, _repeatRate);
         _currentFishState = StartCoroutine(FishCycle());
+        score = 0;
 
         Debug.Log("Start game");
     }
@@ -116,6 +120,7 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(1);
 
             Debug.Log("Well done!!!");
+            UpdateScore();
             isFishing = false;
             CleanupCurrentFish();
             StopCurrentCoroutine();
@@ -185,6 +190,21 @@ public class SpawnManager : MonoBehaviour
         return obstacles[randomIndex];
     }
 
+    public void UpdateScore()
+    {
+        score++;
+        uIScript.UpdateScoreText();
+    }
+
+    public void UpdateRecord()
+    {
+        if (score > record)
+        {
+            record = score;
+            uIScript.UpdateRecordText();
+        }
+    }
+
     public void GameOver()
     {
         CleanupCurrentFish();
@@ -193,7 +213,7 @@ public class SpawnManager : MonoBehaviour
         Debug.Log("Game Over!");
         uIScript.EnableGameOverMessage();
         uIScript.DisableGameOverMessage();
-
+        UpdateRecord();
         uIScript.EnableMainMenu();
         ToMainMenu();
     }

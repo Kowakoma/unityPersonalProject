@@ -18,6 +18,9 @@ public class UI : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         playButton.onClick.AddListener(_spawnManager.StartGame);
         gameOverText.enabled = false;
+
+        UpdateScoreText();
+        UpdateRecordText();
     }
 
     public void EnableMainMenu()
@@ -55,5 +58,15 @@ public class UI : MonoBehaviour
             yield return new WaitForSeconds(2);
             gameOverText.enabled = false;
         }
+    }
+
+    public void UpdateScoreText()
+    {
+        scoreText.text = $"Score: {_spawnManager.score}";
+    }
+
+    public void UpdateRecordText()
+    {
+        recordText.text = $"Record: {_spawnManager.record}";
     }
 }
