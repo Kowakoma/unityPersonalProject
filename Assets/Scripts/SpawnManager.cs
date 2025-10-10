@@ -124,7 +124,7 @@ public class SpawnManager : MonoBehaviour
             isFishing = false;
             CleanupCurrentFish();
             StopCurrentCoroutine();
-            _currentFishState = StartCoroutine(FishCycle());
+            //_currentFishState = StartCoroutine(FishCycle());
         }
     }
 
@@ -207,9 +207,10 @@ public class SpawnManager : MonoBehaviour
 
     public void GameOver()
     {
+        isGameOver = true;
+        CancelInvoke("SpawnObstacle");
         CleanupCurrentFish();
         StopCurrentCoroutine();
-        isGameOver = true;
         Debug.Log("Game Over!");
         uIScript.EnableGameOverMessage();
         uIScript.DisableGameOverMessage();
