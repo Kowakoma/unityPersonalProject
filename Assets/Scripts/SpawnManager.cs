@@ -44,12 +44,12 @@ public class SpawnManager : MonoBehaviour
     public void StartGame()
     {
         isGameOver = false;
+        ResetScore();
         mainCameraMovementScript.ToGamePosition();
         uIScript.DisableMainMenu();
         Instantiate(playerPrefab, _playerSpawnPos, transform.rotation);
         InvokeRepeating("SpawnObstacle", _startDelay, _repeatRate);
         _currentFishState = StartCoroutine(FishCycle());
-        score = 0;
 
         Debug.Log("Start game");
     }
@@ -124,7 +124,7 @@ public class SpawnManager : MonoBehaviour
             isFishing = false;
             CleanupCurrentFish();
             StopCurrentCoroutine();
-            //_currentFishState = StartCoroutine(FishCycle());
+            _currentFishState = StartCoroutine(FishCycle());
         }
     }
 
@@ -193,6 +193,12 @@ public class SpawnManager : MonoBehaviour
     public void UpdateScore()
     {
         score++;
+        uIScript.UpdateScoreText();
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
         uIScript.UpdateScoreText();
     }
 

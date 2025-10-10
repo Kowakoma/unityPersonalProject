@@ -326,6 +326,7 @@ MonoBehaviour:
   playButton: {fileID: 0}
   quitButton: {fileID: 0}
   score: 0
+  record: 0
 --- !u!4 &530077880
 Transform:
   m_ObjectHideFlags: 0
@@ -727,7 +728,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -12, y: 3.43}
+  m_AnchoredPosition: {x: -11, y: 3.4300003}
   m_SizeDelta: {x: 5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &973446498
@@ -1113,7 +1114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -10, y: 15}
+  m_AnchoredPosition: {x: -9, y: 15}
   m_SizeDelta: {x: 5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1117426107
