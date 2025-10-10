@@ -25,10 +25,23 @@ public class UI : MonoBehaviour
 
     public void EnableMainMenu()
     {
-        playButton.gameObject.SetActive(true);
-        quitButton.gameObject.SetActive(true);
-        recordText.enabled = true;
-        titleText.enabled = true;
+        StartCoroutine(WaitWhileCameraIsMoving());
+
+        IEnumerator WaitWhileCameraIsMoving()
+        {
+            playButton.gameObject.SetActive(true);
+            playButton.interactable = false; // Disabling the ability to press the button
+            quitButton.gameObject.SetActive(true);
+            recordText.enabled = true;
+            titleText.enabled = true;
+
+            // Waiting before enable the ability to click on a button.
+            // It solves the problem of camera latching during fast click on play button.
+            yield return new WaitForSeconds(3);  
+
+            // Enable the ability to click on a button.
+            playButton.interactable = true;
+        }
     }
 
     public void DisableMainMenu()

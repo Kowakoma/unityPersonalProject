@@ -47,7 +47,7 @@ public class SpawnManager : MonoBehaviour
         ResetScore();
         mainCameraMovementScript.ToGamePosition();
         uIScript.DisableMainMenu();
-        Instantiate(playerPrefab, _playerSpawnPos, transform.rotation);
+        SpawnPlayer();
         InvokeRepeating("SpawnObstacle", _startDelay, _repeatRate);
         _currentFishState = StartCoroutine(FishCycle());
 
@@ -175,6 +175,18 @@ public class SpawnManager : MonoBehaviour
         {
             _currentFish = Instantiate(fishPrefab, GenerateFishSpawnPosition(), transform.rotation);
             _currentActiveFishCount++;
+        }
+    }
+
+    void SpawnPlayer()
+    {
+        StartCoroutine(WaitWhileGameStateIsChanging());
+
+        IEnumerator WaitWhileGameStateIsChanging()
+        {
+            // Waiting before spawning player solves the problem of camera latching during fast game overs.
+            yield return new WaitForSeconds(3);
+            Instantiate(playerPrefab, _playerSpawnPos, transform.rotation);
         }
     }
 

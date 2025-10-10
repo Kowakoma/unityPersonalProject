@@ -16,6 +16,7 @@ public class MainCameraMovement : MonoBehaviour
                 _smoothSpeed * Time.deltaTime);
             if (Vector3.Distance(transform.position, _gameCameraPos) < 0.1f)
                 _cameraShouldMoveToGamePos = false;
+                
         }
         if (_cameraShouldMoveToMenuPos)
         {
