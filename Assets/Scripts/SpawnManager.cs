@@ -230,6 +230,7 @@ public class SpawnManager : MonoBehaviour
         {
             isFishing = false;
         }
+
         CancelInvoke("SpawnObstacle");
         CleanupCurrentFish();
         StopCurrentCoroutine();

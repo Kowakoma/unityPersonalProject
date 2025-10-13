@@ -13,8 +13,12 @@ public class PlayerController : MonoBehaviour
     private float _horizontalInput;
     private float _verticalInput;
 
+    private SpawnManager _spawnManagerScript;
+
     void Start()
     {
+        // Find Spawn Manager script
+        _spawnManagerScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         _playerRb = GetComponent<Rigidbody>();
         _playerRb.linearDamping = _drag; // Damping for straight movement
         _playerRb.angularDamping = _drag * 2f; // Double Damping for rotation
@@ -28,6 +32,7 @@ public class PlayerController : MonoBehaviour
         // Input controll
         _verticalInput = Input.GetAxis("Vertical");
         _horizontalInput = Input.GetAxis("Horizontal");
+        CheckGameBounds();
     }
 
     void FixedUpdate()
@@ -45,9 +50,24 @@ public class PlayerController : MonoBehaviour
         {
             rotationMultiplyer = 1f;
         }
-        
+
         // Rotate boat 
         float rotationAmount = _horizontalInput * _rotationSpeed * rotationMultiplyer * Time.fixedDeltaTime;
         transform.Rotate(0, rotationAmount, 0, Space.World);
+    }
+    
+    void CheckGameBounds()
+    {
+        Vector3 currentPos = transform.position;
+        
+        if (currentPos.x > 15 // Right bound
+        || currentPos.x < -15 // Left bound
+        || currentPos.z > 30 // Front bound
+        || currentPos.y < -5) // Fall
+        {
+            Destroy(gameObject);
+            _spawnManagerScript.GameOver();
+            enabled = false;
+        }
     }
 }
