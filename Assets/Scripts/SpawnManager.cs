@@ -226,6 +226,10 @@ public class SpawnManager : MonoBehaviour
     public void GameOver()
     {
         isGameOver = true;
+        if (isFishing)
+        {
+            isFishing = false;
+        }
         CancelInvoke("SpawnObstacle");
         CleanupCurrentFish();
         StopCurrentCoroutine();

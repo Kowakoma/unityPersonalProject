@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // Move forward/back
-        Vector3 forwardForce = transform.right * _verticalInput * _speed;
+        Vector3 forwardForce = transform.forward * _verticalInput * _speed;
         _playerRb.AddForce(forwardForce, ForceMode.Force);
 
         // Reverse rotation while moving back

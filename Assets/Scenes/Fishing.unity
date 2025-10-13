@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSpawnPos: {x: 0, y: 2, z: 0}
-  playerPrefab: {fileID: 5012979106206219457, guid: f0c4649c8d75ca845910ea825a725b3f, type: 3}
+  playerPrefab: {fileID: 6627868442139721593, guid: d36a673433694f043bbc26159c9f8269, type: 3}
   _xSpawnBound: 10
   _startDelay: 1
   _repeatRate: 1
