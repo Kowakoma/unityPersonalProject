@@ -37,7 +37,7 @@ public class UI : MonoBehaviour
 
             // Waiting before enable the ability to click on a button.
             // It solves the problem of camera latching during fast click on play button.
-            yield return new WaitForSeconds(3);  
+            yield return new WaitForSeconds(3);
 
             // Enable the ability to click on a button.
             playButton.interactable = true;
@@ -62,6 +62,7 @@ public class UI : MonoBehaviour
     {
         gameOverText.enabled = true;
     }
+    
     public void DisableGameOverMessage()
     {
         StartCoroutine(HideMessageAfterDelay());
