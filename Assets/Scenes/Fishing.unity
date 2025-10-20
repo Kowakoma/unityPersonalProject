@@ -321,6 +321,7 @@ MonoBehaviour:
   isFishing: 0
   mainCameraMovementScript: {fileID: 943153500}
   uIScript: {fileID: 1963334254}
+  fishingProgressBarScript: {fileID: 0}
   gameOverText: {fileID: 0}
   titleText: {fileID: 0}
   playButton: {fileID: 0}

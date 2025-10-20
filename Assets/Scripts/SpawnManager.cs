@@ -24,6 +24,7 @@ public class SpawnManager : MonoBehaviour
     [Header("UI")]
     public MainCameraMovement mainCameraMovementScript;
     public UI uIScript;
+    public FishingProgressBar fishingProgressBarScript;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI titleText;
     public Button playButton;
@@ -115,10 +116,12 @@ public class SpawnManager : MonoBehaviour
         if (!isGameOver)
         {
             isFishing = true;
+            fishingProgressBarScript.ShowBar();
             Debug.Log("Fishing!!!");
 
             yield return new WaitForSeconds(1);
 
+            fishingProgressBarScript.HideBar();
             Debug.Log("Well done!!!");
             UpdateScore();
             isFishing = false;
@@ -137,6 +140,7 @@ public class SpawnManager : MonoBehaviour
     {
         CleanupCurrentFish();
         StopCurrentCoroutine();
+        fishingProgressBarScript.HideBar();
         Debug.Log("Fish got away!");
         isFishing = false;
         _currentFishState = StartCoroutine(FishCycle());
@@ -187,6 +191,11 @@ public class SpawnManager : MonoBehaviour
             // Waiting before spawning player solves the problem of camera latching during fast game overs.
             yield return new WaitForSeconds(3);
             Instantiate(playerPrefab, _playerSpawnPos, transform.rotation);
+            
+            if(fishingProgressBarScript == null)
+            {
+                fishingProgressBarScript = FindAnyObjectByType<FishingProgressBar>();
+            }
         }
     }
 
