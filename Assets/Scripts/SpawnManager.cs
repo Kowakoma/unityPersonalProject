@@ -116,6 +116,7 @@ public class SpawnManager : MonoBehaviour
         if (!isGameOver)
         {
             isFishing = true;
+            StopCurrentCoroutine(); 
             fishingProgressBarScript.ShowBar();
             Debug.Log("Fishing!!!");
 
