@@ -122,6 +122,7 @@ public class SpawnManager : MonoBehaviour
 
             yield return new WaitForSeconds(1);
 
+            SoundManager.Instance.PlayFishingSuccess();
             fishingProgressBarScript.HideBar();
             Debug.Log("Well done!!!");
             UpdateScore();
@@ -139,6 +140,7 @@ public class SpawnManager : MonoBehaviour
 
     public void BreakFishing()
     {
+        SoundManager.Instance.PlayFishingFail();
         CleanupCurrentFish();
         StopCurrentCoroutine();
         fishingProgressBarScript.HideBar();
@@ -235,6 +237,8 @@ public class SpawnManager : MonoBehaviour
 
     public void GameOver()
     {
+        SoundManager.Instance.PlayPlayerDeath();
+
         isGameOver = true;
         if (isFishing)
         {
