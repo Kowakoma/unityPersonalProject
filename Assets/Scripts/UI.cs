@@ -17,6 +17,7 @@ public class UI : MonoBehaviour
     {
         _spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         playButton.onClick.AddListener(_spawnManager.StartGame);
+        quitButton.onClick.AddListener(_spawnManager.QuitGame);
         gameOverText.enabled = false;
 
         UpdateScoreText();
