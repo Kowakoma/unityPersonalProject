@@ -5,7 +5,6 @@ public class RiverCollision : MonoBehaviour
     [Header("Flow force settings")]
     [SerializeField] private float _logFlowMultiplayer = 300f;
     [SerializeField] private float _branchFlowMultiplayer = 150f;
-    [SerializeField] private float _playerFlowMultiplayer = 1000f;
     private ScrollingWaterTexture _scrollingWaterTextureScript;
 
     void Start()
@@ -27,10 +26,6 @@ public class RiverCollision : MonoBehaviour
         else if (collision.gameObject.CompareTag("Branch"))
         {
             flowMultiplayer = _branchFlowMultiplayer;
-        }
-        else if (collision.gameObject.CompareTag("Player"))
-        {
-            flowMultiplayer = _playerFlowMultiplayer;
         }
 
         rb.AddForce(_scrollingWaterTextureScript.flowSpeed * flowMultiplayer, ForceMode.Force);

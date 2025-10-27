@@ -458,8 +458,8 @@ MonoBehaviour:
   _startDelay: 1
   _repeatRate: 1
   obstacles:
-  - {fileID: 3829951561626886490, guid: 531fbbbcfae93a0428c6762d6ee9f4b8, type: 3}
-  - {fileID: 9140443762074230884, guid: 88427f932c245df48afec3874e72b64f, type: 3}
+  - {fileID: 9140443762074230884, guid: cbedc411c3d216b4b82fe0257ba9da6d, type: 3}
+  - {fileID: 3829951561626886490, guid: 03c79cc7bbb97854fb60d594fc8b4ef1, type: 3}
   _maxActiveFish: 1
   fishPrefab: {fileID: 1163647087204415054, guid: ce45e11eda63c1b4ba1773ba1a65b41c, type: 3}
   isGameOver: 0
@@ -557,7 +557,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _logFlowMultiplayer: 20
   _branchFlowMultiplayer: 10
-  _playerFlowMultiplayer: 1
 --- !u!4 &800516435 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4936507315396382, guid: 26f962d1c27c42f43a025a3678e3ba8a, type: 3}
@@ -1839,7 +1838,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _logFlowMultiplayer: 100
   _branchFlowMultiplayer: 50
-  _playerFlowMultiplayer: 10
 --- !u!64 &1717969249
 MeshCollider:
   m_ObjectHideFlags: 0
